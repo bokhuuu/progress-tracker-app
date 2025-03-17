@@ -1,15 +1,25 @@
-const Layout = ({ children, pageTitle }) => {
+import CreateEmployeeButton from "../components/buttons/CreateEmployeeButton";
+import CreateTaskButton from "../components/buttons/CreateTaskButton";
+
+const Layout = ({ children }) => {
   return (
-    <div>
-      <header className="bg-green-200">
-        <div>logo</div>
+    <div
+      className="mx-auto box-border"
+      style={{
+        width: "1920px",
+        height: "1080px",
+        overflow: "hidden",
+        padding: "20px 100px",
+        maxWidth: "100%",
+      }}
+    >
+      <header className="flex justify-between items-center mb-[40px]">
+        <img src="/assets/logo.png" className="w-[210px] h-[38px] gap-1" />
 
-        <div>
-          <div>button1</div>
-          <div>button2</div>
+        <div className="flex space-x-[40px]">
+          <CreateTaskButton />
+          <CreateEmployeeButton />
         </div>
-
-        <p>{pageTitle}</p>
       </header>
 
       <main>{children}</main>

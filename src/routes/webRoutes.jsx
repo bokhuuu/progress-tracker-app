@@ -1,6 +1,6 @@
-import TaskList from "../pages/TaskList";
-import TaskShow from "../pages/TaskShow";
-import TaskCreate from "../pages/TaskCreate";
+import TaskList from "../pages/TaskListPage";
+import TaskShow from "../pages/TaskShowPage";
+import TaskCreate from "../pages/TaskCreatePage";
 
 export const webRoutes = [
   {
