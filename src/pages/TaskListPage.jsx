@@ -44,7 +44,7 @@ const TaskListPage = () => {
     if (savedFilterState) {
       setSelectedOptions(savedFilterState);
     }
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     sessionStorage.removeItem("selectedFilters");
@@ -63,9 +63,9 @@ const TaskListPage = () => {
     }
     setActiveFilter(type);
     if (type === "department") {
-      setFilterData(await fetchDepartments(token));
+      setFilterData(await fetchDepartments());
     } else if (type === "priority") {
-      setFilterData(await fetchPriorities(token));
+      setFilterData(await fetchPriorities());
     } else if (type === "employee") {
       setFilterData(await fetchEmployees(token));
     }
@@ -156,7 +156,7 @@ const TaskListPage = () => {
 
   return (
     <Layout>
-      <div className="text-2xl font-semibold mb-[40px]">დავალებების გვერდი</div>
+      <div className="text-2xl font-semibold mb-[30px]">დავალებების გვერდი</div>
 
       <div className="relative">
         <div className="flex items-center justify-between w-[688px] h-[44px] gap-[45px] rounded-[10px] border border-[#DEE2E6] mb-[8px] p-4">
@@ -199,7 +199,11 @@ const TaskListPage = () => {
                       handleCheckboxChange(activeFilter, item, e.target.checked)
                     }
                   />
-                  <span>{item.name}</span>
+                  <span>
+                    {activeFilter === "employee"
+                      ? item.name + " " + item.surname
+                      : item.name}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -221,11 +225,15 @@ const TaskListPage = () => {
             <button
               key={`${filterType}-${option.id}`}
               onClick={() => removeSelectedOption(filterType, option.id)}
-              className="w-[93px] h-[29px] rounded-[43px] border border-[#CED4DA] pt-[6px] pr-[10px] pb-[6px] pl-[10px] flex items-center gap-[4px] text-[#343A40] cursor-pointer"
+              className="w-[100px] h-[29px] rounded-[43px] border border-[#CED4DA] pt-[6px] pr-[10px] pb-[6px] pl-[10px] flex items-center justify-between text-[#343A40] cursor-pointer"
             >
               <span className="text-[12px]">
-                {filterType === "department" && option.name.length > 8
-                  ? option.name.substring(0, 5) + "..."
+                {filterType === "department"
+                  ? option.name.length > 6
+                    ? option.name.substring(0, 6) + "..."
+                    : option.name
+                  : filterType === "employee"
+                  ? option.surname
                   : option.name}
               </span>
               <img
@@ -245,7 +253,7 @@ const TaskListPage = () => {
 
       <div className="flex justify-between gap-[30px] mt-[30px]">
         {statusOrder.map((status) => (
-          <div key={status.id} className="w-[381px] h-[1042px] rounded-[10px]">
+          <div key={status.id} className="w-[381px]  rounded-[10px]">
             <StatusBadge statusName={status.name} />
             <div>
               {groupedTasks[status.id]?.map((task) => (

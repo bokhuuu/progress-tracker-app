@@ -6,11 +6,11 @@ const StatusBadge = ({ statusName }) => {
     დასრულებული: "#3A86FF",
   };
 
-  const bgColor = statusColors[statusName] || "#6C757D";
+  const bgColor = statusColors[statusName] || "";
 
   return (
     <div
-      className="w-full h-[54px] rounded-[10px] py-[15px] text-white font-bold flex items-center justify-center mb-6"
+      className="w-full h-[54px] rounded-[10px] py-[15px] text-white font-bold flex items-center justify-center mb-5"
       style={{ backgroundColor: bgColor }}
     >
       {statusName}
