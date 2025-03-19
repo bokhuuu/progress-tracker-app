@@ -76,11 +76,15 @@ export const fetchTaskComments = async (token, taskId) => {
 
 export const createTaskComment = async (token, taskId, commentData) => {
   try {
+    if (commentData.parent_id) {
+      commentData.parent_id = commentData.parent_id;
+    }
     const response = await axios.post(
       `${API_BASE}/tasks/${taskId}/comments`,
       commentData,
       getHeaders(token)
     );
+
     return response.data;
   } catch (e) {
     console.error("Error creating task comment:", e);

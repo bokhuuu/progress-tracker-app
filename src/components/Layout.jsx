@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
       className="mx-auto box-border"
       style={{
         width: "1920px",
-        height: "1080px",
+        // height: "1080px",
         overflow: "hidden",
         padding: "20px 100px",
         maxWidth: "100%",
