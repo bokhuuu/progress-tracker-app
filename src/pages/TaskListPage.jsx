@@ -7,7 +7,7 @@ import {
   fetchPriorities,
   fetchEmployees,
 } from "../services/api";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import StatusBadge from "../components/StatusBadge";
 
 const TaskListPage = () => {
@@ -257,7 +257,9 @@ const TaskListPage = () => {
             <StatusBadge statusName={status.name} />
             <div>
               {groupedTasks[status.id]?.map((task) => (
-                <TaskListCard key={task.id} task={task} />
+                <Link to={`/task/${task.id}`} key={task.id}>
+                  <TaskListCard task={task} />
+                </Link>
               )) || ""}
             </div>
           </div>

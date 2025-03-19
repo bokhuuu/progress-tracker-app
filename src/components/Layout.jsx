@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CreateEmployeeButton from "../components/buttons/CreateEmployeeButton";
 import CreateTaskButton from "../components/buttons/CreateTaskButton";
 
@@ -14,8 +15,9 @@ const Layout = ({ children }) => {
       }}
     >
       <header className="flex justify-between items-center mb-[40px]">
-        <img src="/assets/logo.png" className="w-[210px] h-[38px] gap-1" />
-
+        <Link to="/">
+          <img src="/assets/logo.png" className="w-[210px] h-[38px] gap-1" />
+        </Link>
         <div className="flex space-x-[40px]">
           <CreateTaskButton />
           <CreateEmployeeButton />
