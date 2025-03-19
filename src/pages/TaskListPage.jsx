@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Layout from "../components/Layout";
-import TaskCard from "../components/cards/TaskCard";
+import TaskListCard from "../components/cards/TaskListCard";
 import {
   fetchTasks,
   fetchDepartments,
@@ -257,7 +257,7 @@ const TaskListPage = () => {
             <StatusBadge statusName={status.name} />
             <div>
               {groupedTasks[status.id]?.map((task) => (
-                <TaskCard key={task.id} task={task} />
+                <TaskListCard key={task.id} task={task} />
               )) || ""}
             </div>
           </div>

@@ -1,6 +1,7 @@
 import TaskList from "../pages/TaskListPage";
 import TaskShow from "../pages/TaskShowPage";
 import TaskCreate from "../pages/TaskCreatePage";
+import { Navigate } from "react-router-dom";
 
 export const webRoutes = [
   {
@@ -14,5 +15,9 @@ export const webRoutes = [
   {
     path: "/task/create",
     element: <TaskCreate />,
+  },
+  {
+    path: "*",
+    element: <Navigate to="/" />,
   },
 ];
