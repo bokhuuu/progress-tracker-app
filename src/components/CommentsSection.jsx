@@ -22,6 +22,7 @@ const CommentsSection = () => {
 
   const handleAddComment = async () => {
     if (newComment.trim() === "") return;
+
     try {
       const commentData = { text: newComment };
       const createdComment = await createTaskComment(token, id, commentData);
@@ -45,7 +46,9 @@ const CommentsSection = () => {
           comment.id === parentId
             ? {
                 ...comment,
-                sub_comments: [...comment.sub_comments, createdReply],
+                sub_comments: comment.sub_comments
+                  ? [...comment.sub_comments, createdReply]
+                  : [createdReply],
               }
             : comment
         );
@@ -75,13 +78,13 @@ const CommentsSection = () => {
   }, [replyingTo]);
 
   return (
-    <div>
+    <div className="w-[741px] max-h-[975px] top-[199px] left-[1059px] rounded-[10px] border-[#DDD2FF] bg-[#F8F3FEA6] border-[3px] mt-[95px] p-[45px] overflow-y-auto">
       <div className="relative">
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="დაწერე კომენტარი"
-          className="w-[651px] h-[135px] rounded-[10px] border border-[#ADB5BD] pt-[18px] pr-[20px] pb-[15px] pl-[20px] bg-white resize-none"
+          className="w-full h-[135px] rounded-[10px] border border-[#ADB5BD] pt-[18px] pr-[20px] pb-[15px] pl-[20px] bg-white resize-none"
         />
         <button
           onClick={handleAddComment}
@@ -99,7 +102,9 @@ const CommentsSection = () => {
           <span className="font-bold text-[17px] text-white">
             {comments.length +
               comments.reduce(
-                (sum, comment) => sum + comment.sub_comments.length,
+                (sum, comment) =>
+                  sum +
+                  (comment.sub_comments ? comment.sub_comments.length : 0),
                 0
               )}
           </span>
@@ -137,12 +142,12 @@ const CommentsSection = () => {
               </div>
 
               {replyingTo === comment.id && (
-                <div ref={replyBoxRef} className="relative mt-4">
+                <div ref={replyBoxRef} className="relative mt-4 w-[635px]">
                   <textarea
                     value={replyText}
                     onChange={(e) => setReplyText(e.target.value)}
                     placeholder="თქვენი პასუხი"
-                    className="w-[651px] h-[135px] rounded-[10px] border border-[#ADB5BD] pt-[18px] pr-[20px] pb-[15px] pl-[20px] bg-white resize-none"
+                    className="w-full h-[135px] rounded-[10px] border border-[#ADB5BD] pt-[18px] pr-[20px] pb-[15px] pl-[20px] bg-white resize-none"
                   />
                   <button
                     onClick={() => handleReply(comment.id)}
@@ -153,26 +158,27 @@ const CommentsSection = () => {
                 </div>
               )}
 
-              {comment.sub_comments && comment.sub_comments.length > 0 && (
-                <ul className="ml-[60px] mt-4 border-l-2 border-gray-300 pl-4">
-                  {comment.sub_comments.map((reply) => (
-                    <li key={reply.id} className="mt-4">
-                      <div className="flex items-center gap-[10px]">
-                        <img
-                          src={reply.author_avatar}
-                          className="w-[30px] h-[30px] rounded-full"
-                        />
-                        <span className="text-[16px] text-[#212529]">
-                          {reply.author_nickname}
-                        </span>
-                      </div>
-                      <p className="text-[14px] text-[#343A40] ml-[40px]">
-                        {reply.text}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              {Array.isArray(comment.sub_comments) &&
+                comment.sub_comments.length > 0 && (
+                  <ul className="ml-[60px] mt-4 border-l-2 border-gray-300 pl-4">
+                    {comment.sub_comments.map((reply) => (
+                      <li key={reply.id} className="mt-4">
+                        <div className="flex items-center gap-[10px]">
+                          <img
+                            src={reply.author_avatar}
+                            className="w-[30px] h-[30px] rounded-full"
+                          />
+                          <span className="text-[16px] text-[#212529]">
+                            {reply.author_nickname}
+                          </span>
+                        </div>
+                        <p className="text-[14px] text-[#343A40] ml-[40px]">
+                          {reply.text}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
             </li>
           ))}
         </ul>

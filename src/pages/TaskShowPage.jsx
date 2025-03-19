@@ -133,7 +133,7 @@ const TaskShowPage = () => {
           </div>
         </div>
 
-        <div className="w-[741px] max-h-[975px] top-[199px] left-[1059px] rounded-[10px] border-[#DDD2FF] bg-[#F8F3FEA6] border-[3px] mt-[95px] p-[45px] overflow-y-auto">
+        <div>
           <CommentsSection taskId={id} token={token} />
         </div>
       </div>
