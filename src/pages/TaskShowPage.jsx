@@ -1,7 +1,11 @@
 import Layout from "../components/Layout";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { fetchTaskById, fetchStatuses } from "../services/api";
+import {
+  fetchTaskById,
+  fetchStatuses,
+  updateTaskStatus,
+} from "../services/api";
 import { getDepartmentColors, getpPriorityColors } from "../helpers/colors";
 import { formatDateWithDayAbbr } from "../helpers/dates";
 import CommentsSection from "../components/CommentsSection";
@@ -22,14 +26,20 @@ const TaskShowPage = () => {
       .catch((error) => console.error(error));
   }, [id]);
 
-  const handleStatusChange = (newStatus) => {
-    setTask((prevTask) => ({
-      ...prevTask,
-      status: {
-        ...prevTask.status,
-        name: newStatus,
-      },
-    }));
+  const handleStatusChange = async (newStatus, statusId) => {
+    try {
+      await updateTaskStatus(token, id, statusId);
+      setTask((prevTask) => {
+        const updatedTask = {
+          ...prevTask,
+          status: { id: statusId, name: newStatus },
+        };
+        sessionStorage.setItem("task", JSON.stringify(updatedTask));
+        return updatedTask;
+      });
+    } catch (error) {
+      console.error("Error updating task status:", error);
+    }
   };
 
   if (!task)
@@ -91,7 +101,12 @@ const TaskShowPage = () => {
                 value={task.status.name}
                 className="w-[259px] h-[45px] rounded-[5px] border-[1px] border-[#CED4DA] p-[10px] text-sm"
                 onChange={(e) => {
-                  handleStatusChange(e.target.value);
+                  const selectedStatus = statuses.find(
+                    (s) => s.name === e.target.value
+                  );
+                  if (selectedStatus) {
+                    handleStatusChange(selectedStatus.name, selectedStatus.id);
+                  }
                 }}
               >
                 {statuses.map((status) => (
