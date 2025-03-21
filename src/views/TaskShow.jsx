@@ -10,7 +10,7 @@ import { getDepartmentColors, getpPriorityColors } from "../helpers/colors";
 import { formatDateWithDayAbbr } from "../helpers/dates";
 import CommentsSection from "../components/CommentsSection";
 
-const TaskShowPage = () => {
+const TaskShow = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
   const [statuses, setStatuses] = useState([]);
@@ -155,4 +155,4 @@ const TaskShowPage = () => {
     </Layout>
   );
 };
-export default TaskShowPage;
+export default TaskShow;

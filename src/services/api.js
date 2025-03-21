@@ -34,6 +34,7 @@ export const fetchTaskById = async (token, taskId) => {
 
 export const createTask = async (token, taskData) => {
   try {
+    console.log(taskData);
     const response = await axios.post(
       `${API_BASE}/tasks`,
       taskData,

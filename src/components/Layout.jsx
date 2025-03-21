@@ -7,11 +7,9 @@ const Layout = ({ children }) => {
     <div
       className="mx-auto box-border"
       style={{
-        width: "1920px",
-        // height: "1080px",
-        overflow: "hidden",
+        overflowX: "hidden",
+        overflowY: "auto",
         padding: "20px 100px",
-        maxWidth: "100%",
       }}
     >
       <header className="flex justify-between items-center mb-[40px]">
@@ -19,8 +17,13 @@ const Layout = ({ children }) => {
           <img src="/assets/logo.png" className="w-[210px] h-[38px] gap-1" />
         </Link>
         <div className="flex space-x-[40px]">
-          <CreateTaskButton />
-          <CreateEmployeeButton />
+          <Link to="/employee/create">
+            <CreateEmployeeButton />
+          </Link>
+
+          <Link to="/task/create">
+            <CreateTaskButton />
+          </Link>
         </div>
       </header>
 

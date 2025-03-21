@@ -10,7 +10,7 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import StatusBadge from "../components/StatusBadge";
 
-const TaskListPage = () => {
+const TaskList = () => {
   const [tasks, setTasks] = useState([]);
   const [activeFilter, setActiveFilter] = useState(null);
   const [filterData, setFilterData] = useState([]);
@@ -269,4 +269,4 @@ const TaskListPage = () => {
   );
 };
 
-export default TaskListPage;
+export default TaskList;
