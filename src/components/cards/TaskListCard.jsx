@@ -41,9 +41,9 @@ const TaskListCard = ({ task }) => {
         </span>
       </div>
 
-      <div className="mb-5 px-[15px]">
-        <h3 className="mb-3 font-bold">{task.name}</h3>
-        <p className="line-clamp-2">{task.description}</p>
+      <div className="mb-5 px-[15px] line-clamp-2">
+        <h3 className="mb-3 font-bold ">{task.name}</h3>
+        <p className="">{task.description}</p>
       </div>
 
       <div className="flex justify-between ">

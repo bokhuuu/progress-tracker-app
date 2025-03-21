@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import CreateEmployeeButton from "../components/buttons/CreateEmployeeButton";
 import CreateTaskButton from "../components/buttons/CreateTaskButton";
+import EmployeeCreateModal from "../views/EmployCreateModal";
 
 const Layout = ({ children }) => {
+  const [isEmployeeModalOpen, setIsEmployeeModalOpen] = useState(false);
+
   return (
     <div
       className="mx-auto box-border"
@@ -17,9 +21,7 @@ const Layout = ({ children }) => {
           <img src="/assets/logo.png" className="w-[210px] h-[38px] gap-1" />
         </Link>
         <div className="flex space-x-[40px]">
-          <Link to="/employee/create">
-            <CreateEmployeeButton />
-          </Link>
+          <CreateEmployeeButton onOpen={() => setIsEmployeeModalOpen(true)} />
 
           <Link to="/task/create">
             <CreateTaskButton />
@@ -28,6 +30,11 @@ const Layout = ({ children }) => {
       </header>
 
       <main>{children}</main>
+
+      <EmployeeCreateModal
+        isOpen={isEmployeeModalOpen}
+        onClose={() => setIsEmployeeModalOpen(false)}
+      />
     </div>
   );
 };

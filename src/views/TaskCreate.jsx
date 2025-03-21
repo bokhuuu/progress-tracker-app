@@ -67,9 +67,10 @@ const TaskCreate = () => {
     }
 
     if (name === "description") {
+      const wordCount = value.trim().split(/\s+/).length;
       setValidations({
         ...validations,
-        descriptionValid: value.length > 2 && value.length <= 255,
+        descriptionValid: wordCount >= 4 && value.length <= 255,
       });
     }
 
@@ -146,6 +147,14 @@ const TaskCreate = () => {
               onChange={handleChange}
               className="w-[550px] h-[133px] rounded-[5px] border border-[#DEE2E6] p-[14px] resize-none"
             />
+            <span
+              className={`mt-2 ${
+                validations.descriptionValid ? "text-green-500" : "text-red-500"
+              }`}
+            >
+              <div>მინიმუმ 4 სიტყვა</div>
+              <div>მაქსიმუმ 255 სიმბოლო</div>
+            </span>
           </div>
 
           <div className="flex items-center justify-between w-[550px]">
@@ -226,7 +235,7 @@ const TaskCreate = () => {
             </div>
           )}
 
-          <div className="absolute bottom-0 w-full flex flex-col mt-[150px] mb-[100px]">
+          <div className="absolute bottom-0 w-full flex flex-col mb-[73px]">
             <span className="mb-2">დედლაინი*</span>
             <input
               type="date"
@@ -240,7 +249,7 @@ const TaskCreate = () => {
           </div>
         </div>
 
-        <div className="flex justify-end w-full mt-10 mr-[260px]">
+        <div className="flex justify-end w-full mt-10 mr-[265px]">
           <button
             type="submit"
             className="w-[208px] h-[42px] rounded-[5px] pt-[10px] pr-[20px] pb-[10px] pl-[20px] bg-[#8338EC] text-white text-[16px] leading-[100%]"
